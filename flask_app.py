@@ -60,3 +60,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
 
 
+
+
+
+
