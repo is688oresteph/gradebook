@@ -1,0 +1,25 @@
+##adding 4 assignments
+homework1 = Assignment(AssignmentName="Homework1", PointsTotal=5)
+db.session.add(homework1)
+
+homework2 = Assignment(AssignmentName="Homework2", PointsTotal=5)
+db.session.add(homework2)
+
+quiz1 = Assignment(AssignmentName="Quiz1", PointsTotal=10)
+db.session.add(quiz1)
+
+quiz2 = Assignment(AssignmentName="Quiz2", PointsTotal=10)
+db.session.add(quiz2)
+db.session.commit()
+
+##adding 2 students
+paul = Student(FirstName="Paul", LastName="Wall", Major="Business", Email="pwall@umbc.edu")
+db.session.add(paul)
+
+sophia = Student(FirstName="Sophia", LastName="Roman", Major="Biology", Email="sroman@umbc.edu")
+db.session.add(sophia)
+
+##adding login users:
+admin = User(username="admin", password_hash=generate_password_hash("is668"))
+db.session.add(admin)
+db.session.commit()
