@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Student Roster</title>
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+        <div class="container-fluid center">
+            <div class="row">
+                <div class="col-sm-8">
+            </div>
+            <h2 id="name">Student Roster</h2>
+            </div>
+
+          </div>
+<!-- Unordered list of students  -->
+        <ul class="container-fluid list-group">
+
+            <!-- Table of technical skill through -->
+            <li class="list-group-item list-group-item-danger">
+                <table class="table table-light table-border table-responsive-lg">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Major</th>
+                        <th scope="col">Email Address</th>
+                      </tr>
+                    </thead>
+                    {% for student in roster %}
+                    <tbody>
+                      <tr>
+
+                        <td>{{ student.FirstName }}</td>
+                        <td>{{ student.LastName }}</td>
+                        <td>{{ student.Major }}</td>
+                        <td>{{ student.Email }}</td>
+                      </tr>
+
+                    </tbody>
+                     {% endfor %}
+                  </table>
+
+            </li>
+
+        </div>
+  </body>
+</html>

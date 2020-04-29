@@ -75,7 +75,10 @@ def addstudent():
     db.session.commit()
     return redirect(url_for('index'))
 
-
+## Student roster
+@app.route("/roster", methods=["GET", "POST"])
+def roster():
+        return render_template("roster.html", roster=Student.query.all())
 
 
 
