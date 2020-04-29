@@ -114,6 +114,11 @@ def addstudent():
 def roster():
         return render_template("roster.html", roster=Student.query.all())
 
+## Menu Options
+@app.route("/options")
+def options():
+        return render_template("options.html")
+
 
 
 
