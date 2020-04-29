@@ -1,7 +1,7 @@
 
 # A very simple Flask Hello World app for you to get started with...
 
-from flask import Flask
+from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 
@@ -58,6 +58,24 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
+
+## main page
+@app.route("/", methods=["GET", "POST"])
+def index():
+        return render_template("welcome.html")
+
+## code for adding a student
+@app.route("/addstudent", methods=["GET", "POST"])
+def addstudent():
+    if request.method == "GET":
+        return render_template("addstudent.html")
+
+    newstudent = Student(FirstName=request.form["first"], LastName=request.form["last"], Major=request.form["major"], Email=request.form["email"])
+    db.session.add(newstudent)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 
 
 
