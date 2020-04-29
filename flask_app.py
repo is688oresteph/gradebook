@@ -3,7 +3,8 @@
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, login_user, LoginManager
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -19,6 +20,11 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+
+
+app.secret_key = "This is out flask app"
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 class Student(db.Model):
@@ -59,10 +65,38 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(128))
     password_hash = db.Column(db.String(128))
 
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+    def get_id(self):
+        return self.username
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter_by(username=user_id).first()
+
+
+
 ## main page
 @app.route("/", methods=["GET", "POST"])
 def index():
-        return render_template("welcome.html")
+        if request.method == "GET":
+            return render_template("welcome.html", error=False)
+
+        user = load_user(request.form["username"])
+        if user is None:
+            return render_template("welcome.html", error=True)
+
+        if not user.check_password(request.form["password"]):
+            return render_template("welcome.html", error=True)
+
+        login_user(user)
+        return redirect(url_for('addstudent'))
+
+
+
 
 ## code for adding a student
 @app.route("/addstudent", methods=["GET", "POST"])
