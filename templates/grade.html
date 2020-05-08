@@ -51,18 +51,18 @@
                 <table class="table table-light table-border table-responsive-lg">
                     <thead class="thead-dark">
                       <tr>
+
                         <th scope="col"> Student </th>
-                        <th scope="col">Assignment</th>
+                         <th scope="col">Assignment</th>
                         <th scope="col">Grade</th>
                       </tr>
                     </thead>
-                    {% for g in grade %}
+                    {% for a in grade %}
                     <tbody>
                       <tr>
-
-                        <td>{{ g.sname.FirstName }} {{ g.sname.LastName }}</td>
-                        <td>{{ g.assignment.AssignmentName }}</td>
-                        <td>{{ g.Grade }}</td>
+                        <td>{{ a.sname.FirstName }} {{ a.sname.LastName }}</td>
+                        <td>{{ a.assignment.AssignmentName }}</td>
+                        <td>{{ a.Grade }}</td>
                       </tr>
 
                     </tbody>

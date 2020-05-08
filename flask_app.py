@@ -38,7 +38,7 @@ class Student(db.Model):
     LastName = db.Column(db.String(128))
     Major = db.Column(db.String(128))
     Email = db.Column(db.String(128))
-    MyGrade = db.relationship('Grade', backref='sname')
+    MyGrade = db.relationship('Grade', backref='sname', cascade = "all, delete, delete-orphan")
 
 class Assignment(db.Model):
 
