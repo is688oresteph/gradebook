@@ -142,7 +142,10 @@ def delete():
         return redirect(url_for('roster'))
     return render_template('deletestudent.html', form=form)
 
-
+## Student grades
+@app.route("/grade", methods=["GET", "POST"])
+def grade():
+        return render_template("grade.html", grade=Grade.query.all())
 
 
 

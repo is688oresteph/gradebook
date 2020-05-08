@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Student Roster</title>
+    <title>Student Grades</title>
   </head>
 
   <body>
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-sm-8">
             </div>
-            <h2 id="name">Student Roster</h2>
+            <h2 id="name">Student Grades</h2>
             </div>
 
           </div>
@@ -51,20 +51,18 @@
                 <table class="table table-light table-border table-responsive-lg">
                     <thead class="thead-dark">
                       <tr>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Major</th>
-                        <th scope="col">Email Address</th>
+                        <th scope="col"> Student </th>
+                        <th scope="col">Assignment</th>
+                        <th scope="col">Grade</th>
                       </tr>
                     </thead>
-                    {% for student in roster %}
+                    {% for g in grade %}
                     <tbody>
                       <tr>
 
-                        <td>{{ student.FirstName }}</td>
-                        <td>{{ student.LastName }}</td>
-                        <td>{{ student.Major }}</td>
-                        <td>{{ student.Email }}</td>
+                        <td>{{ g.sname.FirstName }} {{ g.sname.LastName }}</td>
+                        <td>{{ g.assignment.AssignmentName }}</td>
+                        <td>{{ g.Grade }}</td>
                       </tr>
 
                     </tbody>
