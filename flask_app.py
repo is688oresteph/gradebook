@@ -5,7 +5,9 @@ from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager
 from werkzeug.security import check_password_hash
-
+from flask_wtf import FlaskForm
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
+#from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -118,6 +120,27 @@ def roster():
 @app.route("/options")
 def options():
         return render_template("options.html")
+
+
+##delete student
+
+#options
+def student_query():
+    return Student.query
+
+class ChoiceForm(FlaskForm):
+    opts = QuerySelectField(query_factory=student_query, allow_blank=False, get_label='FirstName')
+    #opts = QuerySelectMultipleField(query_factory=student_query, allow_blank=False, get_label='FirstName')
+
+@app.route('/delete', methods=["GET", "POST"])
+def delete():
+    form = ChoiceForm()
+    if form.validate_on_submit():
+        db.session.delete(form.opts.data)
+        db.session.commit()
+    return render_template('deletestudent.html', form=form)
+    return redirect(url_for('index'))
+
 
 
 
