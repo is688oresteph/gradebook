@@ -109,7 +109,7 @@ def addstudent():
     newstudent = Student(FirstName=request.form["first"], LastName=request.form["last"], Major=request.form["major"], Email=request.form["email"])
     db.session.add(newstudent)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('roster'))
 
 ## Student roster
 @app.route("/roster", methods=["GET", "POST"])
@@ -132,14 +132,16 @@ class ChoiceForm(FlaskForm):
     opts = QuerySelectField(query_factory=student_query, allow_blank=False, get_label='FirstName')
     #opts = QuerySelectMultipleField(query_factory=student_query, allow_blank=False, get_label='FirstName')
 
-@app.route('/delete', methods=["GET", "POST"])
+@app.route('/deletestudent', methods=["GET", "POST"])
 def delete():
     form = ChoiceForm()
     if form.validate_on_submit():
         db.session.delete(form.opts.data)
         db.session.commit()
+        redirect(url_for('roster'))
+        return redirect(url_for('roster'))
     return render_template('deletestudent.html', form=form)
-    return redirect(url_for('index'))
+
 
 
 
