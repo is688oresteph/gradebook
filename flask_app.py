@@ -145,7 +145,8 @@ def delete():
 ## Student grades
 @app.route("/grade", methods=["GET", "POST"])
 def grade():
-        return render_template("grade.html", grade=Grade.query.all())
+    #work = Assignment.query.all()
+        return render_template("grade.html", grade=Grade.query.all(), work=Assignment.query.all(), students=Student.query.all())
 
 
 

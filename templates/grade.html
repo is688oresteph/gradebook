@@ -51,18 +51,26 @@
                 <table class="table table-light table-border table-responsive-lg">
                     <thead class="thead-dark">
                       <tr>
+                        <th scope="col"> Student Name </th>
+                              {% for w in work %}
+                        <th scope="col"> {{ w.AssignmentName }} </th>
 
-                        <th scope="col"> Student </th>
-                         <th scope="col">Assignment</th>
-                        <th scope="col">Grade</th>
+                              {% endfor %}
+
+                         <!-- <th scope="col">{{ Assignment_ID }}</th> -->
+
+                        <!--<th scope="col">Grade</th> -->
+
                       </tr>
                     </thead>
-                    {% for a in grade %}
+                     {% for s in students %}
                     <tbody>
                       <tr>
-                        <td>{{ a.sname.FirstName }} {{ a.sname.LastName }}</td>
-                        <td>{{ a.assignment.AssignmentName }}</td>
-                        <td>{{ a.Grade }}</td>
+                        <td>{{ s.FirstName }} {{ s.LastName }}</td>
+                        {% for g in s.MyGrade %}
+
+                         <td>{{ g.Grade }}</td>
+                        {% endfor %}
                       </tr>
 
                     </tbody>
