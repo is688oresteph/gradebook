@@ -13,6 +13,12 @@
 
     <body>
 
+        <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+        {% endif %}
+        </ul>
+
         <div class = "container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-warning">
         <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/roster">Student Roster</a>

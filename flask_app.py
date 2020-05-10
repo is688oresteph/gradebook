@@ -3,7 +3,7 @@
 
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, login_user, LoginManager
+from flask_login import UserMixin, login_user, LoginManager, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash
 from flask_wtf import FlaskForm
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -95,7 +95,7 @@ def index():
             return render_template("welcome.html", error=True)
 
         login_user(user)
-        return redirect(url_for('addstudent'))
+        return redirect(url_for('options'))
 
 
 
@@ -105,6 +105,11 @@ def index():
 def addstudent():
     if request.method == "GET":
         return render_template("addstudent.html")
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+
 
     newstudent = Student(FirstName=request.form["first"], LastName=request.form["last"], Major=request.form["major"], Email=request.form["email"])
     db.session.add(newstudent)
@@ -117,6 +122,9 @@ def addstudent():
 def addassignment():
     if request.method == "GET":
         return render_template("addassignment.html")
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
 
     newassignment = Assignment(AssignmentName=request.form["assname"], PointsTotal=request.form["points"])
     db.session.add(newassignment)
@@ -138,7 +146,17 @@ def roster():
 ## Menu Options
 @app.route("/options")
 def options():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    if request.method == "GET":
         return render_template("options.html")
+
+
+
+
+
 
 
 ##delete student
@@ -153,6 +171,10 @@ class ChoiceForm(FlaskForm):
 
 @app.route('/deletestudent', methods=["GET", "POST"])
 def delete():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     form = ChoiceForm()
     if form.validate_on_submit():
         db.session.delete(form.opts.data)
@@ -171,6 +193,10 @@ class ChoicesForm(FlaskForm):
 
 @app.route('/deleteassignment', methods=["GET", "POST"])
 def deleteassignment():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     form = ChoicesForm()
     if form.validate_on_submit():
         db.session.delete(form.opts.data)
@@ -178,6 +204,14 @@ def deleteassignment():
         redirect(url_for('assignmentList'))
         return redirect(url_for('assignmentList'))
     return render_template('deleteassignment.html', form=form)
+
+
+#Logout
+@app.route("/logout/")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 
