@@ -1,0 +1,48 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <title>Add Assignment</title>
+    </head>
+
+    <body>
+
+        <div class = "container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/roster">Student Roster</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/addstudent">Add Student</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        </nav>
+        </div>
+
+        <h2> Add Assignment </h2>
+        <div class="container">
+
+        <form method="POST">
+        <div class="form-group">
+            <label for="first">Assignment Name:</label>
+            <input type="text" class="form-control" id="assname" name="assname">
+        </div>
+        <div class="form-group">
+            <label for="Points Total">Points Total:</label>
+            <input type="text" class="form-control" id="points" name="points">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        </div>
+        </html>

@@ -111,10 +111,29 @@ def addstudent():
     db.session.commit()
     return redirect(url_for('roster'))
 
+
+## add asssignment
+@app.route("/addassignment", methods=["GET", "POST"])
+def addassignment():
+    if request.method == "GET":
+        return render_template("addassignment.html")
+
+    newassignment = Assignment(AssignmentName=request.form["assname"], PointsTotal=request.form["points"])
+    db.session.add(newassignment)
+    db.session.commit()
+    return redirect(url_for('assignmentList'))
+
+##asssignment List
+@app.route ("/assignmentList", methods=["GET", "POST"])
+def assignmentList():
+    return render_template("assignmentlist.html", assignmentlist=Assignment.query.all())
+
+
 ## Student roster
 @app.route("/roster", methods=["GET", "POST"])
 def roster():
         return render_template("roster.html", roster=Student.query.all())
+
 
 ## Menu Options
 @app.route("/options")

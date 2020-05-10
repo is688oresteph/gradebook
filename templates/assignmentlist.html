@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Assignment List</title>
+  </head>
+
+  <body>
+
+      <div class = "container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/roster">Student Roster</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/addstudent">Add Student</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        </nav>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/deletestudent">Delete Student</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+
+    <div class="container-fluid">
+        <div class="container-fluid center">
+            <div class="row">
+                <div class="col-sm-8">
+            </div>
+            <h2 id="name">Assignment List</h2>
+            </div>
+
+          </div>
+<!-- Unordered list of assignments  -->
+        <ul class="container-fluid list-group">
+
+            <!-- Table of technical skill through -->
+            <li class="list-group-item list-group-item-danger">
+                <table class="table table-light table-border table-responsive-lg">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Assignment</th>
+                        <th scope="col">Points Total</th>
+                      </tr>
+                    </thead>
+                    {% for assignment in assignmentlist %}
+                    <tbody>
+                      <tr>
+
+                        <td>{{ assignment.AssignmentName }}</td>
+                        <td>{{ assignment.PointsTotal }}</td>
+                      </tr>
+
+                    </tbody>
+                     {% endfor %}
+                  </table>
+
+            </li>
+
+        </div>
+  </body>
+</html>
