@@ -103,11 +103,14 @@ def index():
 ## code for adding a student
 @app.route("/addstudent", methods=["GET", "POST"])
 def addstudent():
-    if request.method == "GET":
-        return render_template("addstudent.html")
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
+
+    if request.method == "GET":
+        return render_template("addstudent.html")
+
+
 
 
 
@@ -140,6 +143,11 @@ def assignmentList():
 ## Student roster
 @app.route("/roster", methods=["GET", "POST"])
 def roster():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    if request.method == "GET":
         return render_template("roster.html", roster=Student.query.all())
 
 
