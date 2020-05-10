@@ -161,6 +161,27 @@ def delete():
         return redirect(url_for('roster'))
     return render_template('deletestudent.html', form=form)
 
+##delete assignment
+def assignment_query():
+    return Assignment.query
+
+class ChoicesForm(FlaskForm):
+    opts = QuerySelectField(query_factory=assignment_query, allow_blank=False, get_label='AssignmentName')
+    #opts = QuerySelectMultipleField(query_factory=student_query, allow_blank=False, get_label='FirstName')
+
+@app.route('/deleteassignment', methods=["GET", "POST"])
+def deleteassignment():
+    form = ChoicesForm()
+    if form.validate_on_submit():
+        db.session.delete(form.opts.data)
+        db.session.commit()
+        redirect(url_for('assignmentList'))
+        return redirect(url_for('assignmentList'))
+    return render_template('deleteassignment.html', form=form)
+
+
+
+
 ## Student grades
 @app.route("/grade", methods=["GET", "POST"])
 def grade():
