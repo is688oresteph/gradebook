@@ -12,6 +12,10 @@
   </head>
 
   <body>
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 
       <div class = "container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-warning">
@@ -38,51 +42,98 @@
         <div class="container-fluid center">
             <div class="row">
                 <div class="col-sm-8">
-            </div>
-            <h2 id="name">Student Grades</h2>
-            </div>
 
+                    <div class="jumbotron p-3">
+                    <h2 id="name">Student Grades</h2>
+                    <table class="table table-hover table-light table-responsive-lg">
+                        <tr>
+
+                            <th> ID </th>
+                            <th> Assignment </th>
+                            <th> Student </th>
+                            <th> Grade </th>
+                            <th> Action </th>
+                        </tr>
+
+                    {% for row in grade %}
+                        <tr>
+
+                            <td> {{ row.id }}</td>
+                            <td> {{ row.assignment.AssignmentName }} </td>
+                            <td> {{ row.sname.FirstName }} {{ row.sname.LastName }} </td>
+                            <td> {{ row.Grade }} </td>
+                            <td>
+                                <a href="/updategrade/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.id}}"> Edit </a>
+
+                            </td>
+
+                        </tr>
+                     </div>
+                </div>
           </div>
-<!-- Unordered list of students  -->
-        <ul class="container-fluid list-group">
 
-            <!-- Table of technical skill through -->
-            <li class="list-group-item list-group-item-danger">
-                <table class="table table-light table-border table-responsive-lg">
-                    <thead class="thead-dark">
-                      <tr>
-                        <th scope="col"> Student Name </th>
-                              {% for w in work %}
-                        <th scope="col"> {{ w.AssignmentName }} </th>
+          <div id="modaledit{{row.id}}" class="modal fade" role="dialog">
+                <div class="modal-dialog">
 
-                              {% endfor %}
 
-                         <!-- <th scope="col">{{ Assignment_ID }}</th> -->
+                    <div class="modal-content">
 
-                        <!--<th scope="col">Grade</th> -->
 
-                      </tr>
-                    </thead>
+                         <div class="modal-header">
 
-                    <tbody>
-                         {% for s in students %}
-                      <tr>
-                        <td>{{ s.FirstName }} {{ s.LastName }}</td>
-                        {% for g in s.MyGrade %}
 
-                         <td>{{ g.Grade }}</td>
-                        {% endfor %}
-                        <td>
-                            <a href="/editgrade" class"btn btn-warning btn-xs" data-toggle="modal" data-target="">Edit</a>
-                        </td>
-                      </tr>
-                       {% endfor %}
-                    </tbody>
+                            <h4 class="modal-title">Update Grade</h4>
 
-                  </table>
+         </div>
 
-            </li>
+
+         <div class="modal-body">
+
+
+            <form action = "/updategrade" method="POST">
+                <input type="hidden"  name="id" value="{{row.id}}">
+               <div class="form-group">
+                  <label>Grade:</label>
+                  <input type="text" class="form-control" name="grade" value="{{ row.Grade }}">
+               </div>
+
+               <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Update</button>
+               </div>
+
+            </form>
+
 
         </div>
+
+
+         <div class="modal-footer">
+
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+         </div>
+
+
+      </div>
+
+
+   </div>
+
+</div>
+
+                    {% endfor %}
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
   </body>
 </html>

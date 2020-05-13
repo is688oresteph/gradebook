@@ -110,10 +110,6 @@ def addstudent():
     if request.method == "GET":
         return render_template("addstudent.html")
 
-
-
-
-
     newstudent = Student(FirstName=request.form["first"], LastName=request.form["last"], Major=request.form["major"], Email=request.form["email"])
     db.session.add(newstudent)
     db.session.commit()
@@ -225,10 +221,23 @@ def logout():
 
 
 ## Student grades
-@app.route("/grade", methods=["GET", "POST"])
+@app.route('/grade')
 def grade():
-    #work = Assignment.query.all()
-        return render_template("grade.html", grade=Grade.query.all(), work=Assignment.query.all(), students=Student.query.all())
+    sgrade=Grade.query.all()
+    return render_template("grade.html", grade=sgrade)
+
+
+@app.route('/updategrade', methods=["GET", "POST"])
+def updategrade():
+    if request.method == 'POST':
+        mygrade = Grade.query.get(request.form.get('id'))
+       # mygrade.assignment.AssignmentName = request.form['assignmentname']
+        #mygrade.sname.FirstName = request.form['studentname']
+        mygrade.Grade = request.form['grade']
+        db.session.commit()
+
+        return redirect(url_for('grade'))
+
 
 
 
