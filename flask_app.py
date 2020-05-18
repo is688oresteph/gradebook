@@ -119,11 +119,14 @@ def addstudent():
 ## add asssignment
 @app.route("/addassignment", methods=["GET", "POST"])
 def addassignment():
-    if request.method == "GET":
-        return render_template("addassignment.html")
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
+
+    if request.method == "GET":
+        return render_template("addassignment.html")
+
+
 
     newassignment = Assignment(AssignmentName=request.form["assname"], PointsTotal=request.form["points"])
     db.session.add(newassignment)
@@ -187,6 +190,8 @@ def delete():
         return redirect(url_for('roster'))
     return render_template('deletestudent.html', form=form)
 
+
+
 ##delete assignment
 def assignment_query():
     return Assignment.query
@@ -223,6 +228,10 @@ def logout():
 ## Student grades
 @app.route('/grade')
 def grade():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
     sgrade=Grade.query.all()
     return render_template("grade.html", grade=sgrade)
 

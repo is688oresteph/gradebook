@@ -13,26 +13,34 @@
 
     <body>
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-left">
         {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('logout') }}">Log out</a></li>
         {% endif %}
         </ul>
 
-        <div class = "container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/roster">Student Roster</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <a class="navbar-brand" href="http://teamstore20.pythonanywhere.com/addstudent">Add Student</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        </nav>
-        </div>
+         <nav class="navbar navbar-expand-sm bg-warning">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/roster">Student Roster</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/addstudent">Add Student</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/deletestudent">Delete Student</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/addassignment">Add Assignment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/deleteassignment">Delete Assignment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://teamstore20.pythonanywhere.com/grade">Grades</a>
+    </li>
+  </ul>
+</nav>
 
         <h2> Add a Student </h2>
         <div class="container">
