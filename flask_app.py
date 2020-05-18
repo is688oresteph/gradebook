@@ -7,7 +7,7 @@ from flask_login import UserMixin, login_user, LoginManager, logout_user, login_
 from werkzeug.security import check_password_hash
 from flask_wtf import FlaskForm
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-#from wtforms.ext.sqlalchemy.fields import QuerySelectMultipleField
+
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -28,7 +28,7 @@ app.secret_key = "This is out flask app"
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
+##Student table model
 class Student(db.Model):
 
     __tablename__ = "student"
@@ -40,6 +40,7 @@ class Student(db.Model):
     Email = db.Column(db.String(128))
     MyGrade = db.relationship('Grade', backref='sname', cascade = "all, delete, delete-orphan")
 
+#Assignment Table model
 class Assignment(db.Model):
 
     __tablename__ = "assignment"
@@ -47,9 +48,9 @@ class Assignment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     AssignmentName = db.Column(db.String(128))
     PointsTotal = db.Column(db.Integer)
-    AGrade = db.relationship('Grade', backref='assignment')
+    AGrade = db.relationship('Grade', backref='assignment', cascade = "all, delete, delete-orphan")
 
-
+#Grade Table model
 class Grade(db.Model):
 
     __tablename__ = "grade"
@@ -59,6 +60,7 @@ class Grade(db.Model):
     Student_ID = db.Column(db.Integer, db.ForeignKey('student.id'))
     Grade = db.Column(db.Float)
 
+#user login table model
 class User(UserMixin, db.Model):
 
     __tablename__ = "users"
@@ -74,14 +76,13 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return self.username
 
-
+#Managing login credentials
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(username=user_id).first()
 
 
-
-## main page
+## main page this page shows the login screen
 @app.route("/", methods=["GET", "POST"])
 def index():
         if request.method == "GET":
@@ -96,7 +97,6 @@ def index():
 
         login_user(user)
         return redirect(url_for('options'))
-
 
 
 
@@ -161,11 +161,6 @@ def options():
         return render_template("options.html")
 
 
-
-
-
-
-
 ##delete student
 
 #options
@@ -174,7 +169,7 @@ def student_query():
 
 class ChoiceForm(FlaskForm):
     opts = QuerySelectField(query_factory=student_query, allow_blank=False, get_label='FirstName')
-    #opts = QuerySelectMultipleField(query_factory=student_query, allow_blank=False, get_label='FirstName')
+
 
 @app.route('/deletestudent', methods=["GET", "POST"])
 def delete():
@@ -191,14 +186,12 @@ def delete():
     return render_template('deletestudent.html', form=form)
 
 
-
 ##delete assignment
 def assignment_query():
     return Assignment.query
 
 class ChoicesForm(FlaskForm):
     opts = QuerySelectField(query_factory=assignment_query, allow_blank=False, get_label='AssignmentName')
-    #opts = QuerySelectMultipleField(query_factory=student_query, allow_blank=False, get_label='FirstName')
 
 @app.route('/deleteassignment', methods=["GET", "POST"])
 def deleteassignment():
@@ -223,29 +216,40 @@ def logout():
     return redirect(url_for('index'))
 
 
-
-
 ## Student grades
 @app.route('/grade')
 def grade():
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
-
     sgrade=Grade.query.all()
     return render_template("grade.html", grade=sgrade)
 
-
+#update student grades
 @app.route('/updategrade', methods=["GET", "POST"])
 def updategrade():
     if request.method == 'POST':
         mygrade = Grade.query.get(request.form.get('id'))
-       # mygrade.assignment.AssignmentName = request.form['assignmentname']
-        #mygrade.sname.FirstName = request.form['studentname']
         mygrade.Grade = request.form['grade']
         db.session.commit()
 
         return redirect(url_for('grade'))
+
+
+##search for single student
+@app.route('/search', methods=["GET", "POST"])
+def search():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = ChoiceForm()
+    if form.validate_on_submit():
+        qry = db_session.query(Student).filter_by(FirstName=form.opts.data).first()
+        #onestudent = Student.query.filter_by(FirstName=form.opts.data).first()
+        onestudent = qry.all()
+
+        return render_template('search.html', onestudent=onestudent, form=form)
 
 
 
