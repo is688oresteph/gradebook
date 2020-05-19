@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash
 from flask_wtf import FlaskForm
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config["DEBUG"] = True
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
