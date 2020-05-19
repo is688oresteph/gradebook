@@ -250,9 +250,6 @@ def search():
 
     form = ChoiceForm()
     if form.validate_on_submit():
-        #qry = Student.query.filter_by(FirstName=form.opts.data).first()
-        #qry = form.opts.data
-        #return '<html><h1>{}</h1></html>'.format(form.opts.data.LastName)
         return render_template('onesearch.html', one=form.opts.data)
     return render_template('search.html', form=form)
 
