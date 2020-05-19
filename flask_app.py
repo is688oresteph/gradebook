@@ -131,12 +131,17 @@ def addassignment():
     newassignment = Assignment(AssignmentName=request.form["assname"], PointsTotal=request.form["points"])
     db.session.add(newassignment)
     db.session.commit()
-    return redirect(url_for('assignmentList'))
+    return redirect(url_for('assignmentlist'))
 
 ##asssignment List
-@app.route ("/assignmentList", methods=["GET", "POST"])
-def assignmentList():
-    return render_template("assignmentlist.html", assignmentlist=Assignment.query.all())
+@app.route ("/assignmentlist", methods=["GET", "POST"])
+def assignmentlist():
+
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    if request.method == "GET":
+        return render_template("assignmentlist.html", assignmentlist=Assignment.query.all())
 
 
 ## Student roster
@@ -203,8 +208,8 @@ def deleteassignment():
     if form.validate_on_submit():
         db.session.delete(form.opts.data)
         db.session.commit()
-        redirect(url_for('assignmentList'))
-        return redirect(url_for('assignmentList'))
+        redirect(url_for('assignmentlist'))
+        return redirect(url_for('assignmentlist'))
     return render_template('deleteassignment.html', form=form)
 
 
