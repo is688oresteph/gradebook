@@ -237,6 +237,11 @@ def updategrade():
 
 
 ##search for single student
+
+class singleForm(FlaskForm):
+    opts = QuerySelectField(query_factory=assignment_query, allow_blank=False, get_label='AssignmentName')
+
+
 @app.route('/search', methods=["GET", "POST"])
 def search():
 
@@ -245,11 +250,11 @@ def search():
 
     form = ChoiceForm()
     if form.validate_on_submit():
-        qry = db_session.query(Student).filter_by(FirstName=form.opts.data).first()
-        #onestudent = Student.query.filter_by(FirstName=form.opts.data).first()
-        onestudent = qry.all()
-
-        return render_template('search.html', onestudent=onestudent, form=form)
+        #qry = Student.query.filter_by(FirstName=form.opts.data).first()
+        #qry = form.opts.data
+        #return '<html><h1>{}</h1></html>'.format(form.opts.data.LastName)
+        return render_template('onesearch.html', one=form.opts.data)
+    return render_template('search.html', form=form)
 
 
 
