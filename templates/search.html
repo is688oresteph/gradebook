@@ -11,15 +11,11 @@
         <title>Search Student</title>
     </head>
 
-
-
            <ul class="nav navbar-nav navbar-right">
             {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('logout') }}">Log out</a></li>
             {% endif %}
            </ul>
-
-
 
     <nav class="navbar navbar-expand-sm bg-warning">
   <ul class="navbar-nav">
@@ -48,6 +44,11 @@
 </nav>
 
 <body>
+            <div class="container-fluid">
+        <div class="container-fluid center">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="jumbotron p-3">
         <h2> Search Student </h2>
         <div class="container">
 
@@ -62,6 +63,11 @@
             <input type="submit" name="search">
         </form>
 
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
         </div>
 </body>
 
