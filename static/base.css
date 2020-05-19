@@ -1,21 +1,22 @@
-#body
+/*body
 #{
  #   background-color: black;
 #}
-
+*/
 h1
 {
     color: White;
     text-align: center;
 }
 
-
+/*CSS for to align the picutre in the options.html page*/
 .center-block {
     display: block;
     margin-right: auto;
     margin-left: auto;
 }
 
+/* style for gradebook header on options.html page*/
 #gradebookname {
     text-align: center;
 }
